@@ -1,4 +1,5 @@
 import { trusted_companies } from "../../assets/assets.ts";
+import { motion } from 'framer-motion'
 
 const Companies = () => {
   return (
