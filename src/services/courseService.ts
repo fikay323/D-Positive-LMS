@@ -1,7 +1,7 @@
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 
 import { db } from '../firebase.js'; 
-import type { CreateCourseData } from '../models/course.model.js';
+import type { Course, CreateCourseData } from '../models/course.model.js';
 
 export const CourseService = {
     createCourse: async (courseData: CreateCourseData): Promise<string> => {
@@ -13,4 +13,19 @@ export const CourseService = {
             throw error;
         }
     },
+
+    getPublishedCourses: async (): Promise<Course[]> => {
+        try {
+            const q = query(collection(db, "courses"), where("isPublished", "==", true));
+            const querySnapshot = await getDocs(q);
+
+            return querySnapshot.docs.map(doc => ({
+                _id: doc.id, 
+                ...doc.data()
+            })) as Course[];
+        } catch (error) {
+            console.log("Error fetching courses:", error);
+            return [];
+        }
+    }
 };

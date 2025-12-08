@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import { dummyCourses } from '../assets/assets.js'
 import { useNavigate } from "react-router-dom";
 import type { Course } from "../models/course.model.js";
+import { CourseService } from "../services/courseService.js";
 
 interface AppContextType {
     currency: string;
@@ -21,12 +21,11 @@ export const AppContextProvider = (props: any) => {
     const [allCourses, setAllCourses] = useState<Course[]>([]);
     const [isEducator, setIsEducator] = useState(true);
 
-    // Fetch All Courses
     const fetchAllCourses = async () => {
-        setAllCourses(dummyCourses);
+        const courses = await CourseService.getPublishedCourses();
+        setAllCourses(courses);
     }
 
-    // Function to calculate average rating of courses..
     const calculateRating = (course: Course) => {
         if (course.courseRatings.length === 0){
             return 0;
