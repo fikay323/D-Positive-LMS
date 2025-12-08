@@ -1,10 +1,6 @@
-import { trusted_companies } from "../../assets/assets";
-import { motion } from 'framer-motion'
+import { trusted_companies } from "../../assets/assets.ts";
 
 const Companies = () => {
-
- 
-
   return (
     <div
       className="pt-16 scroll-smooth">
@@ -18,7 +14,7 @@ const Companies = () => {
     if (index === 5 || index === 6) {
       return (
         <img
-          key={index}
+          key={src}
           src={src}
           alt={`${index}`}
           className='w-25'

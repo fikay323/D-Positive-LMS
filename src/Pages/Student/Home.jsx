@@ -1,9 +1,9 @@
 import React from 'react'
-import Hero from '../../Component/Student/Hero'
-import Companies from '../../Component/Student/Companies'
-import CoursesSection from '../../Component/Student/CoursesSection'
-import CallToAction from '../../Component/Student/CallToAction'
-import Footer from '../../Component/Student/Footer'
+import Hero from '../../Component/Student/Hero.jsx'
+import Companies from '../../Component/Student/Companies.jsx'
+import CoursesSection from '../../Component/Student/CoursesSection.jsx'
+import CallToAction from '../../Component/Student/CallToAction.jsx'
+import Footer from '../../Component/Student/Footer.jsx'
 
 
 

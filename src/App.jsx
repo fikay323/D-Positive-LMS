@@ -1,22 +1,21 @@
 import React from 'react'
-import Navbar from './Component/Student/Navbar'
+import Navbar from './Component/Student/Navbar.jsx'
 import { Route, Routes, useMatch } from 'react-router-dom'
-import Home from './Pages/Student/Home'
-import CoursesList from './Pages/Student/CoursesList'
-import CourseDetails from './Pages/Student/CourseDetails'
-import MyEnrollement  from './Pages/Student/MyEnrollement'
-import Player from './Pages/Student/Player'
-import Loading from './Component/Student/Loading'
-import Educator from './Pages/Educator/Educator'
-import Dashboard from './Pages/Educator/Dashboard'
-import AddCourse from './Pages/Educator/AddCourse'
-import MyCourse from './Pages/Educator/MyCourse'
-import StudentEnrolled from './Pages/Educator/StudentEnrolled'
+import Home from './Pages/Student/Home.jsx'
+import CoursesList from './Pages/Student/CoursesList.jsx'
+import CourseDetails from './Pages/Student/CourseDetails.jsx'
+import MyEnrollement  from './Pages/Student/MyEnrollement.jsx'
+import Player from './Pages/Student/Player.jsx'
+import Loading from './Component/Student/Loading.jsx'
+import Educator from './Pages/Educator/Educator.jsx'
+import Dashboard from './Pages/Educator/Dashboard.jsx'
+import AddCourse from './Pages/Educator/AddCourse.jsx'
+import MyCourse from './Pages/Educator/MyCourse.jsx'
+import StudentEnrolled from './Pages/Educator/StudentEnrolled.jsx'
 
 
 
 const App = () => {
-
   const isEducatorRoute = useMatch('/educator/*')
 
   return (

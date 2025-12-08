@@ -51,6 +51,7 @@ import kwaccima_logo from './kwaccima_logo.png'
 import kwasu_logo from './kwasu_logo.png'
 import unilorin_logo from './unilorin_logo.png'
 import nysc_logo from './nysc_logo.png'
+import type { Course } from '../models/course.model.js'
 
 
 // export const assets = {
@@ -231,7 +232,7 @@ export const dummyStudentEnrolled = [
     }
 ]
 
-export const dummyCourses = [
+export const dummyCourses: Course[] = [
     {
         "_id": "605c72efb3f1c2b1f8e4e1a1",
         "courseTitle": "Introduction to JavaScript",
