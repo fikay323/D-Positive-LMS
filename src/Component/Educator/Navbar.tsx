@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserButton, useUser } from '@clerk/clerk-react'; // Assuming Clerk usage
+import { UserButton, useUser } from '@clerk/clerk-react';
 
 const Navbar: React.FC = () => {
   const { user } = useUser();

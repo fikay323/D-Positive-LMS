@@ -1,3 +1,5 @@
+export type CreateCourseData = Omit<Course, '_id' | '__v'>;
+
 export interface Course {
     _id: string;
     courseTitle: string;
