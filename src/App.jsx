@@ -7,11 +7,11 @@ import CourseDetails from './Pages/Student/CourseDetails.jsx'
 import MyEnrollement  from './Pages/Student/MyEnrollement.jsx'
 import Player from './Pages/Student/Player.tsx'
 import Loading from './Component/Student/Loading.jsx'
-import Educator from './Pages/Educator/Educator.jsx'
+import Educator from './Pages/Educator/Educator.tsx'
 import Dashboard from './Pages/Educator/Dashboard.jsx'
-import AddCourse from './Pages/Educator/AddCourse.jsx'
-import MyCourse from './Pages/Educator/MyCourse.jsx'
+import AddCourse from './Pages/Educator/AddCourse.js'
 import StudentEnrolled from './Pages/Educator/StudentEnrolled.jsx'
+import MyCourses from './Pages/Educator/MyCourses.tsx'
 
 
 
@@ -33,8 +33,14 @@ const App = () => {
         <Route path='/educator' element={<Educator />}>
           <Route path='educator' element={<Dashboard />}/>
           <Route path='add-course' element={<AddCourse />}/>
-          <Route path='my-course' element={<MyCourse />}/>
+          <Route path='my-courses' element={<MyCourses />}/>
           <Route path='student-erolled' element={<StudentEnrolled />}/>
+        </Route>
+        <Route path='/educator' element={<Educator />}>
+          <Route index element={<MyCourses />} /> 
+          <Route path='add-course' element={<AddCourse />} />
+          <Route path='my-courses' element={<MyCourses />} />
+          <Route path='student-enrolled' element={<div>Student List Component</div>} />
         </Route>
       </Routes>
     </div>
