@@ -5,7 +5,7 @@ import Home from './Pages/Student/Home.jsx'
 import CoursesList from './Pages/Student/CoursesList.jsx'
 import CourseDetails from './Pages/Student/CourseDetails.jsx'
 import MyEnrollement  from './Pages/Student/MyEnrollement.jsx'
-import Player from './Pages/Student/Player.jsx'
+import Player from './Pages/Student/Player.tsx'
 import Loading from './Component/Student/Loading.jsx'
 import Educator from './Pages/Educator/Educator.jsx'
 import Dashboard from './Pages/Educator/Dashboard.jsx'
@@ -28,7 +28,7 @@ const App = () => {
          <Route path='/course-list/:input' element = {<CoursesList />}/>
         <Route path='/course/:id' element = {<CourseDetails />}/>
         <Route path='/my-enrollment' element = {<MyEnrollement />}/>
-         <Route path='/player/:courseId' element = {<Player />}/>
+         <Route path='/course/:courseId/player' element = {<Player />}/>
         <Route path='/loading/:path' element = {<Loading />}/>
         <Route path='/educator' element={<Educator />}>
           <Route path='educator' element={<Dashboard />}/>

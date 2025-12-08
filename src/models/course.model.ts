@@ -5,19 +5,7 @@ export interface Course {
     coursePrice: number;
     isPublished: boolean;
     discount: number;
-    courseContent: {
-        chapterId: string;
-        chapterOrder: number;
-        chapterTitle: string;
-        chapterContent: {
-            lectureId: string;
-            lectureTitle: string;
-            lectureDuration: number;
-            lectureUrl: string;
-            isPreviewFree: boolean;
-            lectureOrder: number;
-        }[];
-    }[];
+    courseContent: CourseLecture[];
     educator: string;
     enrolledStudents: string[];
     courseRatings: {
@@ -29,4 +17,20 @@ export interface Course {
     updatedAt: string;
     __v: number;
     courseThumbnail: string;
+}
+
+export interface CourseLecture {
+    chapterId: string;
+    chapterOrder: number;
+    chapterTitle: string;
+    chapterContent: ChapterContent[];
+}
+
+export interface ChapterContent {
+    lectureId: string;
+    lectureTitle: string;
+    lectureDuration: number;
+    lectureUrl: string;
+    isPreviewFree: boolean;
+    lectureOrder: number;
 }

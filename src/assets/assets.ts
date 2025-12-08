@@ -250,7 +250,7 @@ export const dummyCourses: Course[] = [
                         "lectureId": "lecture1",
                         "lectureTitle": "What is JavaScript?",
                         "lectureDuration": 16,
-                        "lectureUrl": "https://youtu.be/CBWnBi-awSA",
+                        "lectureUrl": "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                         "isPreviewFree": true,
                         "lectureOrder": 1
                     },
@@ -258,7 +258,7 @@ export const dummyCourses: Course[] = [
                         "lectureId": "lecture2",
                         "lectureTitle": "Setting Up Your Environment",
                         "lectureDuration": 19,
-                        "lectureUrl": "https://youtu.be/4l87c2aeB4I",
+                        "lectureUrl": "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
                         "isPreviewFree": false,
                         "lectureOrder": 2
                     }
@@ -273,7 +273,7 @@ export const dummyCourses: Course[] = [
                         "lectureId": "lecture3",
                         "lectureTitle": "Understanding Variables",
                         "lectureDuration": 20,
-                        "lectureUrl": "https://youtu.be/pZQeBJsGoDQ",
+                        "lectureUrl": "https://pdfobject.com/pdf/sample.pdf",
                         "isPreviewFree": true,
                         "lectureOrder": 1
                     },
@@ -281,7 +281,7 @@ export const dummyCourses: Course[] = [
                         "lectureId": "lecture4",
                         "lectureTitle": "Data Types in JavaScript",
                         "lectureDuration": 10,
-                        "lectureUrl": "https://youtu.be/ufHT2WEkkC4",
+                        "lectureUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                         "isPreviewFree": false,
                         "lectureOrder": 2
                     }
