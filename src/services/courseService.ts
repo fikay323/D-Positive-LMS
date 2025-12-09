@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
 
 import { db } from '../firebase.js'; 
 import type { Course, CreateCourseData } from '../models/course.model.js';
@@ -26,6 +26,35 @@ export const CourseService = {
         } catch (error) {
             console.log("Error fetching courses:", error);
             return [];
+        }
+    },
+
+    getCourseById: async (id: string): Promise<Course | null> => {
+        try {
+            const docRef = doc(db, "courses", id);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                return { _id: docSnap.id, ...docSnap.data() } as Course;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error("Error fetching course by ID:", error);
+            throw error;
+        }
+    },
+
+    updateCourse: async (id: string, courseData: Partial<CreateCourseData>): Promise<void> => {
+        try {
+            const courseRef = doc(db, "courses", id);
+            await updateDoc(courseRef, {
+                ...courseData,
+                updatedAt: new Date().toISOString()
+            });
+        } catch (error) {
+            console.error("Error updating course:", error);
+            throw error;
         }
     }
 };

@@ -39,6 +39,7 @@ const App = () => {
         <Route path='/educator' element={<Educator />}>
           <Route index element={<MyCourses />} /> 
           <Route path='add-course' element={<AddCourse />} />
+          <Route path='edit-course/:courseId' element={<AddCourse />} />
           <Route path='my-courses' element={<MyCourses />} />
           <Route path='student-enrolled' element={<div>Student List Component</div>} />
         </Route>
