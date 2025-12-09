@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs, doc, updateDoc, getDoc, arrayUnion } from 'firebase/firestore';
 
 import { db } from '../firebase.js'; 
 import type { Course, CreateCourseData } from '../models/course.model.js';
@@ -70,6 +70,19 @@ export const CourseService = {
             });
         } catch (error) {
             console.error("Error updating course:", error);
+            throw error;
+        }
+    },
+
+    enrollStudent: async (courseId: string, userId: string): Promise<void> => {
+        try {
+            const courseRef = doc(db, "courses", courseId);
+            
+            await updateDoc(courseRef, {
+                enrolledStudents: arrayUnion(userId)
+            });
+        } catch (error) {
+            console.error("Error enrolling student:", error);
             throw error;
         }
     }
