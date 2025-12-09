@@ -45,6 +45,22 @@ export const CourseService = {
         }
     },
 
+    getEnrolledCourses: async (userId: string): Promise<Course[]> => {
+        try {
+            const courseRef = collection(db, "courses");
+            const q = query(courseRef, where("enrolledStudents", "array-contains", userId));
+            
+            const querySnapshot = await getDocs(q);
+            return querySnapshot.docs.map(doc => ({ 
+                _id: doc.id, 
+                ...doc.data() 
+            })) as Course[];
+        } catch (error) {
+            console.error("Error fetching enrolled courses:", error);
+            return [];
+        }
+    },
+
     updateCourse: async (id: string, courseData: Partial<CreateCourseData>): Promise<void> => {
         try {
             const courseRef = doc(db, "courses", id);

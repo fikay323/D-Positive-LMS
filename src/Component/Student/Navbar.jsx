@@ -6,15 +6,11 @@ import { useClerk, UserButton, useUser } from '@clerk/clerk-react'
 import { AppContext } from '../../Context/AppContext'
 
 const Navbar = () => {
-
-  const {navigate, isEducator} = useContext(AppContext)
-
-
-  const isCourseListPage = location.pathname.includes('/course-list')
-
   const {openSignIn} = useClerk()
   const {user} = useUser()
+  const {navigate, isEducator} = useContext(AppContext)
 
+  const isCourseListPage = location.pathname.includes('/course-list')
   return (
     <div className={`flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-25 border-b border-gray-500 py-4 ${isCourseListPage ? 'bg-white' : 'bg-green-200/70'} `}>
       <img onClick={() => navigate('/')} src={logo} alt="logo" className='w-13 lg:w-28 ' />
@@ -23,7 +19,7 @@ const Navbar = () => {
           {user &&
            <>
             <button onClick={() => {navigate('/educator')}}>{isEducator ? 'Educator Dahboard' : 'Become Educator'}</button>
-          | <Link to='/my-erollment'>My Enrollment</Link>
+          | <Link to='/my-enrollment'>My Learning</Link>
            </>
           }
          </div>
