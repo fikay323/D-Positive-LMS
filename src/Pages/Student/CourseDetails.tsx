@@ -5,15 +5,17 @@ import Loading from '../../Component/Student/Loading.jsx';
 import type { Course } from '../../models/course.model.js';
 import { useUser } from '@clerk/clerk-react';
 import { CourseService } from '../../services/courseService.js';
+import PaymentModal from '../../Component/Student/PaymentModal.js';
 
 const CourseDetails = () => {
 	const { id } = useParams()
 	const navigate = useNavigate()
 	const { user } = useUser()
 
-	const [courseData, setCourseData] = useState<Course | null>(null)
+	const [courseData, setCourseData] = useState<Course | null>(null);
 	const [expandedSection, setExpandedSection] = useState<Record<number, boolean>>({});
-	const [isEnrolled, setIsEnrolled] = useState(false)
+	const [isEnrolled, setIsEnrolled] = useState(false);
+	const [showPaymentModal, setShowPaymentModal] = useState(false);
 
 	const { allCourses, currency } = useContext(AppContext)
 
@@ -39,12 +41,16 @@ const CourseDetails = () => {
 
 		if (!courseData) return;
 
+		if (courseData.coursePrice > 0) {
+			setShowPaymentModal(true);
+			return;
+		}
+
+		// If FREE, proceed with instant enrollment
 		try {
 			await CourseService.enrollStudent(courseData._id, user.id);
-
 			setIsEnrolled(true);
 			alert("Enrollment Successful!");
-
 		} catch (error) {
 			console.error(error);
 			alert("Enrollment failed. Please try again.");
@@ -76,21 +82,19 @@ const CourseDetails = () => {
 		return { totalLectures, durationString };
 	};
 
-	const calculateRating = (course: Course) => {
-		if (course.courseRatings.length === 0) return 0;
-		const totalRating = course.courseRatings.reduce((acc, curr) => acc + curr.rating, 0);
-		return (totalRating / course.courseRatings.length).toFixed(1);
-	}
-
 	if (!courseData) return <Loading />
 
 	const { totalLectures, durationString } = calculateCourseStats(courseData);
-	const averageRating = calculateRating(courseData);
 
 	return (
 		<>
+			{showPaymentModal && courseData && (
+				<PaymentModal 
+					coursePrice={courseData.coursePrice} 
+					onClose={() => setShowPaymentModal(false)} 
+				/>
+			)}
 			<div className='flex md:flex-row flex-col-reverse gap-10 relative items-start justify-between md:px-36 px-8 md:pt-30 pt-20 text-left'>
-
 				{/* Background Gradient */}
 				<div className='absolute top-0 left-0 w-full h-section-height -z-1 bg-gradient-to-b from-cyan-100/70'></div>
 
@@ -104,7 +108,7 @@ const CourseDetails = () => {
 
 					{/* Ratings & Educator */}
 					<div className='flex items-center gap-2 text-sm mb-6'>
-						<span className='text-gray-500'>{ courseData.enrolledStudents.length } student{ courseData.enrolledStudents.length > 1 ? 's' : '' }</span>
+						<span className='text-gray-500'>{courseData.enrolledStudents.length} student{courseData.enrolledStudents.length > 1 ? 's' : ''}</span>
 					</div>
 
 					{/* Course Structure */}
@@ -176,7 +180,7 @@ const CourseDetails = () => {
 					<div className='p-6'>
 						<div className='flex items-end gap-3 mb-4'>
 							<span className='text-3xl font-bold text-gray-900'>
-								{currency + courseData.coursePrice.toFixed(2) }
+								{currency + courseData.coursePrice.toFixed(2)}
 							</span>
 						</div>
 
