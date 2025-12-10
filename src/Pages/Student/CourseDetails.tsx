@@ -15,7 +15,7 @@ const CourseDetails = () => {
 	const [expandedSection, setExpandedSection] = useState<Record<number, boolean>>({});
 	const [isEnrolled, setIsEnrolled] = useState(false)
 
-	const { allCourses } = useContext(AppContext)
+	const { allCourses, currency } = useContext(AppContext)
 
 	const fetchCourseData = async () => {
 		const findCourse = allCourses.find(course => course._id === id) ?? null;
@@ -102,25 +102,10 @@ const CourseDetails = () => {
 						{courseData.courseTitle}
 					</h1>
 
-					<p className='text-sm md:text-base text-gray-600 mb-4'
-						dangerouslySetInnerHTML={{ __html: courseData.courseDescription.slice(0, 200) + '...' }}>
-					</p>
-
 					{/* Ratings & Educator */}
 					<div className='flex items-center gap-2 text-sm mb-6'>
-						<div className='flex items-center text-amber-500'>
-							{[...Array(5)].map((_, i) => (
-								<svg key={i} className={`w-4 h-4 ${i < Math.floor(Number(averageRating)) ? 'fill-current' : 'text-gray-300'}`} fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-							))}
-						</div>
-						<span className='font-semibold text-gray-800'>{averageRating}</span>
-						<span className='text-gray-500'>({courseData.courseRatings.length} ratings)</span>
-						<span className='text-gray-500'>• {courseData.enrolledStudents.length} students</span>
+						<span className='text-gray-500'>{ courseData.enrolledStudents.length } student{ courseData.enrolledStudents.length > 1 ? 's' : '' }</span>
 					</div>
-
-					<p className='text-sm mb-8'>Course by <span className='text-blue-600 underline cursor-pointer'>{courseData.educator}</span></p>
 
 					{/* Course Structure */}
 					<div className='border border-gray-300 rounded-md overflow-hidden mb-8'>
@@ -191,19 +176,12 @@ const CourseDetails = () => {
 					<div className='p-6'>
 						<div className='flex items-end gap-3 mb-4'>
 							<span className='text-3xl font-bold text-gray-900'>
-								${(courseData.coursePrice - (courseData.discount * courseData.coursePrice / 100)).toFixed(2)}
+								{currency + courseData.coursePrice.toFixed(2) }
 							</span>
-							<span className='text-gray-500 line-through text-lg'>${courseData.coursePrice}</span>
-							<span className='text-gray-800 font-medium'>{courseData.discount}% off</span>
 						</div>
 
 						{/* Stats Row */}
 						<div className='flex items-center gap-4 text-sm text-gray-600 mb-6'>
-							<div className='flex items-center gap-1'>
-								<svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-								<span>{averageRating}</span>
-							</div>
-							<div className='h-4 w-px bg-gray-300'></div>
 							<div className='flex items-center gap-1'>
 								<svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
 								<span>{durationString}</span>

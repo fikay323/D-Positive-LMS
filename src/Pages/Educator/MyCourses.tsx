@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { AppContext } from '../../Context/AppContext.js';
 import type { Course } from '../../models/course.model.js';
+import { PencilLine } from 'lucide-react';
 
 const MyCourses: React.FC = () => {
     const { allCourses } = useContext(AppContext);
@@ -31,7 +32,6 @@ const MyCourses: React.FC = () => {
                             <th className='p-4 border-b'>Course Title</th>
                             <th className='p-4 border-b'>Price</th>
                             <th className='p-4 border-b'>Enrolled</th>
-                            <th className='p-4 border-b'>Rating</th>
                             <th className='p-4 border-b text-center'>Status</th>
                         </tr>
                     </thead>
@@ -46,19 +46,16 @@ const MyCourses: React.FC = () => {
                                     {course.coursePrice === 0 ? "Free" : `$${course.coursePrice}`}
                                 </td>
                                 <td className='p-4'>{course.enrolledStudents.length} Students</td>
-                                <td className='p-4 text-amber-500 font-medium'>
-                                    ★ {course.courseRatings.length > 0 ? (course.courseRatings.reduce((a, b) => a + b.rating, 0) / course.courseRatings.length).toFixed(1) : 'N/A'}
-                                </td>
-                                <td className='p-4 text-center'>
-                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${course.isPublished ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
-                                        {course.isPublished ? 'Active' : 'Draft'}
-                                    </span>
+                                <td className='p-4'>
+                                    <span className='text-center flex items-center gap-2'>
+                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${course.isPublished ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                                            {course.isPublished ? 'Active' : 'Draft'}
+                                        </span>
 
-                                    <Link to={`/educator/edit-course/${course._id}`}>
-                                        <button className='text-blue-600 hover:text-blue-900 font-medium text-sm underline'>
-                                            Edit
-                                        </button>
-                                    </Link>
+                                        <Link to={`/educator/edit-course/${course._id}`}>
+                                            <PencilLine size={20} className='text-blue-600 hover:text-blue-900' />
+                                        </Link>
+                                    </span>
                                 </td>
                             </tr>
                         )) : (

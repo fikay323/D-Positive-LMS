@@ -13,7 +13,7 @@ const Navbar = () => {
   const isCourseListPage = location.pathname.includes('/course-list')
   return (
     <div className={`flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-25 border-b border-gray-500 py-4 ${isCourseListPage ? 'bg-white' : 'bg-green-200/70'} `}>
-      <img onClick={() => navigate('/')} src={logo} alt="logo" className='w-13 lg:w-28 ' />
+      <img onClick={() => navigate('/')} src={logo} alt="logo" className='w-13 lg:w-28 max-h-16' />
       <div className='hidden md:flex items-center gap-5 text-gray-800 font-semibold'>
          <div className='flex items-center gap-5'>
           {user &&
