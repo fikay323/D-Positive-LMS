@@ -1,5 +1,3 @@
-import React from 'react'
-import logo from '../../assets/logo.png'
 import logo_white from '../../assets/logo_white.png'
 
 const Footer = () => {
@@ -18,14 +16,6 @@ const Footer = () => {
             <li>Blog</li>
             <li><a href="https://dpositiveglobalconsult.com/contact-us/">Contact Us</a></li>
           </ul>
-        </div>
-        <div className='hidden md:flex flex-col items-start w-full'>
-          <h2 className='font-semibold text-white mb-5'>Suscribe To Our Newsletter</h2>
-          <p className='text-sm text-white'>The Latest news, update, articles, and resources, sent to your inbox weekly</p>
-          <div className='flex items-center gap-2 pt-4'>
-            <input type="email" placeholder='Enter your email' className='border border-gray-500/30 bg-white text-black outline-none placeholder-gray-400 px-2 rounded  w-63 h-9 text-sm '/>
-            <button className='bg-gray-900 w-29 h-9 text-white font-bold rounded px-3'>Subscribe</button>
-          </div>
         </div>
       </div>
       <p className='text-white/60 text-xs md:text-sm py-4 text-center'> Copyright 2025 &copy; DPositive LMS. All Right Reserved  </p>
