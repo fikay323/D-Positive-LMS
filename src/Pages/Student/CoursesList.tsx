@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../Context/AppContext.jsx'
 import SearchBar from '../../Component/Student/SearchBar.jsx'
 import { useParams } from 'react-router-dom';
