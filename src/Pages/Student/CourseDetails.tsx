@@ -170,12 +170,6 @@ const CourseDetails = () => {
 					{/* Thumbnail */}
 					<div className='relative'>
 						<img src={courseData.courseThumbnail} alt="Course Thumbnail" className='w-full h-48 object-cover' />
-						<div className='absolute inset-0 bg-black/20 flex items-center justify-center cursor-pointer group'>
-							{/* Play Button Overlay */}
-							<div className='bg-white/90 p-3 rounded-full group-hover:scale-110 transition-transform'>
-								<svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-							</div>
-						</div>
 					</div>
 
 					<div className='p-6'>
