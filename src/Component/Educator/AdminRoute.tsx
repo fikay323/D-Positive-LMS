@@ -2,12 +2,15 @@ import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { AppContext } from '../../Context/AppContext.js';
+import Loading from '../Student/Loading.jsx';
 
 const AdminRoute = () => {
-    const { isAdmin } = useContext(AppContext);
+    const { isAdmin, isAdminLoading } = useContext(AppContext);
 
-    // If Admin: Render the child routes (The Dashboard)
-    // If Not: Kick them to Home Page
+    if (isAdminLoading) {
+        return <Loading />; 
+    }
+
     return isAdmin ? <Outlet /> : <Navigate to="/" replace />;
 };
 
