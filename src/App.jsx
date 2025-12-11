@@ -11,14 +11,11 @@ import MyEnrollments from './Pages/Student/MyEnrollments.js'
 import Player from './Pages/Student/Player.tsx'
 import Loading from './Component/Student/Loading.jsx'
 import Educator from './Pages/Educator/Educator.tsx'
-import Dashboard from './Pages/Educator/Dashboard.jsx'
 import AddCourse from './Pages/Educator/AddCourse.js'
-import StudentEnrolled from './Pages/Educator/StudentEnrolled.jsx'
 import MyCourses from './Pages/Educator/MyCourses.tsx'
 import AdminRoute from './Component/Educator/AdminRoute.js'
 import EnrollStudent from './Pages/Educator/EnrollStudent.js'
-
-
+import AdminManager from './Pages/Educator/AdminManager.js'
 
 const App = () => {
 	const isEducatorRoute = useMatch('/educator/*')
@@ -42,18 +39,13 @@ const App = () => {
 				<Route path='/my-enrollment' element={<MyEnrollments />} />
 				<Route path='/course/:courseId/player' element={<Player />} />
 				<Route path='/loading/:path' element={<Loading />} />
-				<Route path='/educator' element={<Educator />}>
-					<Route path='educator' element={<Dashboard />} />
-					<Route path='add-course' element={<AddCourse />} />
-					<Route path='my-courses' element={<MyCourses />} />
-					<Route path='student-erolled' element={<StudentEnrolled />} />
-				</Route>
 				<Route element={<AdminRoute />}>
 					<Route path='/educator' element={<Educator />}>
 						<Route index element={<MyCourses />} />
 						<Route path='add-course' element={<AddCourse />} />
 						<Route path='edit-course/:courseId' element={<AddCourse />} />
 						<Route path='enroll-student' element={<EnrollStudent />} />
+						<Route path='admin-list' element={<AdminManager />} />
 					</Route>
 				</Route>
 			</Routes>
