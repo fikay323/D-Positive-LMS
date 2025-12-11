@@ -24,7 +24,6 @@ const CourseDetails = () => {
 		setCourseData(findCourse);
 
 		if (findCourse && user && findCourse.enrolledStudents.includes(user.id)) {
-			console.log("Already enrolled");
 			setIsEnrolled(true);
 		}
 	}
@@ -90,6 +89,8 @@ const CourseDetails = () => {
 		<>
 			{showPaymentModal && courseData && (
 				<PaymentModal 
+					courseTitle={courseData.courseTitle}
+					courseId={courseData._id}
 					coursePrice={courseData.coursePrice} 
 					onClose={() => setShowPaymentModal(false)} 
 				/>
