@@ -10,10 +10,10 @@ interface PaymentModalProps {
 }
 
 const PaymentModal: React.FC<PaymentModalProps> = ({ onClose, coursePrice, courseId, courseTitle}) => {
-    const accountName = 'Caleb Fagbenro';
-    const accountNumber = '0123456789';
-    const bankName = 'Access Bank';
-    const gmail = 'fagbenrocoa@gmail.com';
+    const accountName = 'D-Positive Image Consult';
+    const accountNumber = '0020018619';
+    const bankName = 'Stanbic IBTC';
+    const gmail = 'jobs.dpositive@gmail.com';
 
     const { user } = useUser();
     const [isSubmitting, setIsSubmitting] = useState(false);

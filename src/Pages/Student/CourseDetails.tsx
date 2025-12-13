@@ -17,7 +17,7 @@ const CourseDetails = () => {
 	const [isEnrolled, setIsEnrolled] = useState(false);
 	const [showPaymentModal, setShowPaymentModal] = useState(false);
 
-	const { allCourses, currency } = useContext(AppContext)
+	const { allCourses, currency, isAdmin } = useContext(AppContext)
 
 	const fetchCourseData = async () => {
 		const findCourse = allCourses.find(course => course._id === id) ?? null;
@@ -88,11 +88,11 @@ const CourseDetails = () => {
 	return (
 		<>
 			{showPaymentModal && courseData && (
-				<PaymentModal 
+				<PaymentModal
 					courseTitle={courseData.courseTitle}
 					courseId={courseData._id}
-					coursePrice={courseData.coursePrice} 
-					onClose={() => setShowPaymentModal(false)} 
+					coursePrice={courseData.coursePrice}
+					onClose={() => setShowPaymentModal(false)}
 				/>
 			)}
 			<div className='flex md:flex-row flex-col-reverse gap-10 relative items-start justify-between md:px-36 px-8 md:pt-30 pt-20 text-left'>
@@ -193,29 +193,30 @@ const CourseDetails = () => {
 						</div>
 
 						{/* --- ACTION BUTTON LOGIC --- */}
-						{isEnrolled ? (
-							<button
-								onClick={() => navigate(`/course/${courseData._id}/player`)}
-								className='w-full bg-green-600 text-white font-semibold py-3 rounded-md hover:bg-green-700 transition-colors mb-6'
-							>
-								Continue to Course
-							</button>
-						) : (
-							<button
-								onClick={handleEnroll}
-								className='w-full bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-700 transition-colors mb-6'
-							>
-								{courseData.coursePrice === 0 ? "Enroll for Free" : "Enroll Now"}
-							</button>
+						{!isAdmin && (
+							<>
+								{isEnrolled ? (
+									<button
+										onClick={() => navigate(`/course/${courseData._id}/player`)}
+										className='w-full bg-green-600 text-white font-semibold py-3 rounded-md hover:bg-green-700 transition-colors mb-6'
+									>
+										Continue to Course
+									</button>
+								) : (
+									<button
+										onClick={handleEnroll}
+										className='w-full bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-700 transition-colors mb-6'
+									>
+										{courseData.coursePrice === 0 ? "Enroll for Free" : "Enroll Now"}
+									</button>
+								)}
+							</>
 						)}
 
 						<div>
 							<h4 className='font-semibold text-gray-800 mb-3'>What's in the course?</h4>
 							<ul className='text-sm text-gray-500 space-y-2 list-disc list-inside'>
 								<li>Lifetime access with free updates.</li>
-								<li>Step-by-step, hands-on project guidance.</li>
-								<li>Downloadable resources and source code.</li>
-								<li>Quizzes to test your knowledge.</li>
 								<li>Certificate of completion.</li>
 							</ul>
 						</div>

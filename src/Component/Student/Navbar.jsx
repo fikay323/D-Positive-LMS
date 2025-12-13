@@ -18,15 +18,19 @@ const Navbar = () => {
 				<div className='flex items-center gap-5'>
 					{user &&
 						<>
-							{isAdmin && <button onClick={() => { navigate('/educator') }}>{ 'Educator Dahboard' }</button> }
-							{isAdmin && ' | ' }
-							<Link to='/my-enrollment'>My Learning</Link>
+							{isAdmin && <button onClick={() => { navigate('/educator') }}>{'Educator Dahboard'}</button>}
+							{isAdmin && ' | '}
+							{!isAdmin && (
+								<Link to="/my-enrollment">
+									My Learning
+								</Link>
+							)}
 						</>
 					}
 				</div>
 				{user ? <UserButton /> :
 
-					<button onClick={() => openSignIn()} className='bg-blue-700 text-white px-5 py-2 rounded-full cursor-pointer'>Create Account </button>}
+					<button onClick={() => openSignIn()} className='bg-blue-700 text-white px-5 py-2 rounded-full cursor-pointer'>Get Started</button>}
 			</div>
 
 			{/*Mobile Screen  */}
@@ -35,8 +39,8 @@ const Navbar = () => {
 				<div className='items-center gap-1 sm:gap-2 maz-sm:text-xs'>
 					{user &&
 						<>
-							{isAdmin && <button onClick={() => { navigate('/educator') }}>{ 'Educator Dahboard' }</button> }
-							{isAdmin && ' | ' }
+							{isAdmin && <button onClick={() => { navigate('/educator') }}>{'Educator Dahboard'}</button>}
+							{isAdmin && ' | '}
 							<Link to='/my-erollment'>My Enrollment</Link>
 						</>
 					}
