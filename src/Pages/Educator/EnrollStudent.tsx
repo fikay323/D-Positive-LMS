@@ -79,7 +79,7 @@ const EnrollStudent = () => {
     };
 
     const handleApprove = async (req: PurchaseRequest) => {
-        if (!window.confirm(`Confirm payment of $${req.amount} from ${req.userName}?`)) return;
+        if (!window.confirm(`Confirm payment of ₦${req.amount} from ${req.userName}?`)) return;
 
         try {
             await PurchaseService.updateRequestStatus(req.id!, 'completed', req.courseId, req.userId);
@@ -162,7 +162,7 @@ const EnrollStudent = () => {
                                                 <p className='text-xs text-gray-500'>{req.email}</p>
                                             </td>
                                             <td className='p-3'>{req.courseTitle}</td>
-                                            <td className='p-3 font-semibold'>${req.amount}</td>
+                                            <td className='p-3 font-semibold'>₦{req.amount}</td>
                                             <td className='p-3 text-gray-500'>{new Date(req.createdAt).toLocaleDateString()}</td>
                                             <td className='p-3 text-right flex justify-end gap-2'>
                                                 <button

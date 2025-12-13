@@ -53,7 +53,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ onClose, coursePrice, cours
 
                 <h2 className='text-xl font-bold text-gray-800 mb-2'>Complete Your Enrollment</h2>
                 <p className='text-gray-600 text-sm mb-6'>
-                    To access this course, please transfer the sum of <span className='font-bold text-black'>${coursePrice}</span> to the account below.
+                    To access this course, please transfer the sum of <span className='font-bold text-black'>₦{coursePrice}</span> to the account below.
                 </p>
 
                 {/* Bank Details Card */}

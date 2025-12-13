@@ -19,7 +19,7 @@ const Navbar = () => {
 					{user &&
 						<>
 							{isAdmin && <button onClick={() => { navigate('/educator') }}>{'Educator Dahboard'}</button>}
-							{isAdmin && ' | '}
+						
 							{!isAdmin && (
 								<Link to="/my-enrollment">
 									My Learning

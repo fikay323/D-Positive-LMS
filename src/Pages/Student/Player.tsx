@@ -80,7 +80,7 @@ const Player = () => {
                                     {/* Repeat user email to cover screen */}
                                     {[...Array(20)].map((_, i) => (
                                         <div key={i} className='text-white text-lg font-bold whitespace-nowrap select-none mix-blend-difference'>
-                                            {user.primaryEmailAddress?.emailAddress}
+                                            {"D-Positive Global Image Consult"}
                                         </div>
                                     ))}
                                 </div>
