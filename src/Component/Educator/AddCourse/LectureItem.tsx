@@ -1,7 +1,8 @@
 import React, { useState, type ChangeEvent } from 'react';
 
 import type { ChapterContent } from '../../../models/course.model.js';
-import { uploadFileToCloudinary } from '../../../utils/utils.js';
+import { uploadMedia } from '../../../utils/utils.js';
+import { UploadCloud, Video, X } from 'lucide-react';
 
 interface LectureItemProps {
     chapterId: string;
@@ -14,25 +15,47 @@ interface LectureItemProps {
 
 const LectureItem: React.FC<LectureItemProps> = ({ chapterId, lecture, onUpdate, onRemove, onUploadStart, onUploadFinish }) => {
     const [isUploading, setIsUploading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
+
     const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
         try {
             setIsUploading(true);
-            onUploadStart(); 
+            setUploadProgress(0);
+            onUploadStart();
 
-            const downloadUrl = await uploadFileToCloudinary(file);
+            const uploadedKey = await uploadMedia(file, (percent) => {
+                setUploadProgress(percent);
+            });
 
-            onUpdate(chapterId, lecture.lectureId, 'lectureUrl', downloadUrl);
+            console.log("Uploaded key:", uploadedKey);
+
+            if (uploadedKey) {
+                onUpdate(chapterId, lecture.lectureId, 'lectureUrl', uploadedKey);
+            } else {
+                alert("Upload failed (No key returned)");
+            }
             
         } catch (error) {
             console.error("Upload failed", error);
             alert("Upload failed, please try again.");
         } finally {
             setIsUploading(false);
+            setUploadProgress(0);
             onUploadFinish();
         }
+    };
+
+    const getFileName = (url: string) => {
+        if (!url) return '';
+
+        const parts = url.split('-');
+        if (parts.length > 1) {
+            return parts.slice(1).join('-'); 
+        }
+        return url.split('/').pop() || 'File Uploaded';
     };
 
     return (
@@ -60,26 +83,47 @@ const LectureItem: React.FC<LectureItemProps> = ({ chapterId, lecture, onUpdate,
 
             {/* File Upload (Smart Input) */}
             <div className='flex-1 min-w-[200px]'>
-                <label className='text-xs text-gray-500'>
-                    {isUploading ? <span className='text-blue-600'>Uploading...</span> : lecture.lectureUrl ? <span className='text-green-600'>✓ Content Uploaded</span> : 'Video/PDF File'}
+                <label className='text-xs text-gray-500 flex justify-between'>
+                    <span>Video Content</span>
+                    {isUploading && <span className='text-blue-600 font-bold'>{uploadProgress}%</span>}
                 </label>
                 
-                {/* If uploading, show progress bar or spinner. If done, show "Change File" */}
                 {isUploading ? (
-                     <div className='w-full h-9 bg-gray-100 rounded border border-gray-200 flex items-center px-2'>
-                        <svg className="animate-spin h-4 w-4 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                        <span className='text-xs text-gray-500'>Please wait...</span>
+                     <div className='w-full h-9 bg-gray-100 rounded border border-gray-200 flex items-center px-2 relative overflow-hidden'>
+                        <div 
+                            className='absolute left-0 top-0 bottom-0 bg-blue-100 transition-all duration-300' 
+                            style={{ width: `${uploadProgress}%` }}
+                        ></div>
+                        <span className='relative z-10 text-xs text-blue-800 font-medium flex items-center gap-2'>
+                            <UploadCloud size={14} className="animate-bounce"/> Uploading...
+                        </span>
                      </div>
                 ) : (
-                    <div className='flex gap-2'>
+                    <div className='flex gap-2 items-center'>
+                        {!lecture.lectureUrl ? (
                         <input 
                             type="file"
                             accept="video/*,application/pdf"
                             onChange={handleFileChange}
-                            className='w-full text-sm text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-blue-50 file:text-blue-700' 
+                            className='w-full text-sm text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer' 
                         />
-                        {lecture.lectureUrl && (
-                             <a href={lecture.lectureUrl} target="_blank" rel="noreferrer" className='text-blue-500 text-xs underline flex items-center'>View</a>
+                        ) : (
+                            <div className='flex items-center justify-between w-full border border-green-200 bg-green-50 rounded px-3 py-2'>
+                                <div className='flex items-center gap-2 overflow-hidden'>
+                                    <Video size={16} className="text-green-600 shrink-0" />
+                                    <span className='text-xs text-green-700 font-medium truncate'>
+                                        {getFileName(lecture.lectureUrl)}
+                                    </span>
+                                </div>
+                                <button
+                                    type="button" 
+                                    onClick={() => onUpdate(chapterId, lecture.lectureId, 'lectureUrl', '')}
+                                    className='text-gray-400 hover:text-red-500 transition'
+                                    title="Remove file"
+                                >
+                                    <X size={16} />
+                                </button>
+                            </div>
                         )}
                     </div>
                 )}
@@ -96,13 +140,13 @@ const LectureItem: React.FC<LectureItemProps> = ({ chapterId, lecture, onUpdate,
                 <span className='text-sm text-gray-600'>Free</span>
             </div>
 
-            {/* Remove Button */}
+            {/* Remove Lecture Button */}
             <button 
                 type="button" 
                 onClick={() => onRemove(chapterId, lecture.lectureId)} 
-                className='text-red-500 pt-4 hover:bg-red-50 p-2 rounded'
+                className='text-red-500 pt-4 hover:bg-red-50 p-2 rounded transition'
             >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                <X size={18} />
             </button>
         </div>
     );

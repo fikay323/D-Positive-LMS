@@ -1,7 +1,5 @@
 import React, { type ChangeEvent, useState } from 'react';
-import uniqid from 'uniqid';
-import { uploadFileToCloudinary } from '../../../utils/utils.js';
-
+import { uploadMedia } from '../../../utils/utils.js';
 
 interface CourseBasicInfoProps {
     courseTitle: string;
@@ -25,8 +23,10 @@ const CourseBasicInfo: React.FC<CourseBasicInfoProps> = ({ courseTitle, courseDe
 
         try {
             onUploadStart();
-            const url = await uploadFileToCloudinary(file);
-            onInfoChange('courseThumbnail', url);
+            const url = await uploadMedia(file);
+            if (url) {
+                onInfoChange('courseThumbnail', url);
+            }
         } catch (error) {
             console.error(error);
             alert("Thumbnail upload failed");
@@ -53,10 +53,6 @@ const CourseBasicInfo: React.FC<CourseBasicInfoProps> = ({ courseTitle, courseDe
                 <div>
                     <label className='block text-sm font-medium text-gray-700 mb-1'>Price ($)</label>
                     <input type="number" min="0" className='w-full border border-gray-300 rounded p-2' value={coursePrice} onChange={(e) => onInfoChange('coursePrice', Number(e.target.value))} />
-                </div>
-                <div>
-                    <label className='block text-sm font-medium text-gray-700 mb-1'>Discount (%)</label>
-                    <input type="number" min="0" max="100" className='w-full border border-gray-300 rounded p-2' value={discount} onChange={(e) => onInfoChange('discount', Number(e.target.value))} />
                 </div>
 
                 <div className='col-span-2'>

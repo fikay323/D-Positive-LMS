@@ -1,21 +1,21 @@
-import { useEffect } from 'react'
-import { useUser } from '@clerk/clerk-react'
-import { Route, Routes, useMatch } from 'react-router-dom'
+import { useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
+import { Route, Routes, useMatch } from 'react-router-dom';
 
-import { UserService } from './services/userService.js'
-import Navbar from './Component/Student/Navbar.jsx'
-import Home from './Pages/Student/Home.jsx'
-import CoursesList from './Pages/Student/CoursesList.jsx'
-import CourseDetails from './Pages/Student/CourseDetails.tsx'
-import MyEnrollments from './Pages/Student/MyEnrollments.js'
-import Player from './Pages/Student/Player.tsx'
-import Loading from './Component/Student/Loading.jsx'
-import Educator from './Pages/Educator/Educator.tsx'
+import { UserService } from './services/userService.js';
+import Navbar from './Component/Student/Navbar.jsx';
+import Home from './Pages/Student/Home.jsx';
+import CoursesList from './Pages/Student/CoursesList.jsx';
+import CourseDetails from './Pages/Student/CourseDetails.tsx';
+import MyEnrollments from './Pages/Student/MyEnrollments.js';
+import Player from './Pages/Student/Player.tsx';
+import Loading from './Component/Student/Loading.jsx';
+import Educator from './Pages/Educator/Educator.tsx';
 import AddCourse from './Pages/Educator/AddCourse.js'
-import MyCourses from './Pages/Educator/MyCourses.tsx'
+import MyCourses from './Pages/Educator/MyCourses.tsx';
 import AdminRoute from './Component/Educator/AdminRoute.js'
-import EnrollStudent from './Pages/Educator/EnrollStudent.js'
-import AdminManager from './Pages/Educator/AdminManager.js'
+import EnrollStudent from './Pages/Educator/EnrollStudent.js';
+import AdminManager from './Pages/Educator/AdminManager.js';
 
 const App = () => {
 	const isEducatorRoute = useMatch('/educator/*')
