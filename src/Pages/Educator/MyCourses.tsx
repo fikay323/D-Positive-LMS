@@ -43,7 +43,7 @@ const MyCourses: React.FC = () => {
                                     <span className='font-semibold truncate max-w-xs'>{course.courseTitle}</span>
                                 </td>
                                 <td className='p-4'>
-                                    {course.coursePrice === 0 ? "Free" : `$${course.coursePrice}`}
+                                    {course.coursePrice === 0 ? "Free" : `₦${course.coursePrice}`}
                                 </td>
                                 <td className='p-4'>{course.enrolledStudents.length} Students</td>
                                 <td className='p-4'>

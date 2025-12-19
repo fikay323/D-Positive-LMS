@@ -7,6 +7,9 @@ import kwaccima_logo from './kwaccima_logo.png'
 import kwasu_logo from './kwasu_logo.png'
 import unilorin_logo from './unilorin_logo.png'
 import nysc_logo from './nysc_logo.png'
+import undp_logo_blue from './undp_logo_blue.svg'
+import cbn_logo from './cbn_logo.png'
+import cmd_logo from './cmd_logo.png'
 
 export const trusted_companies = [
     nysc_logo,
@@ -17,5 +20,8 @@ export const trusted_companies = [
     itf_logo,
     kwaccima_logo,
     kwasu_logo,
-    unilorin_logo
+    unilorin_logo,
+    // undp_logo_blue,
+    cmd_logo,
+    cbn_logo
 ];
